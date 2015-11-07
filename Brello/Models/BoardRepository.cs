@@ -47,6 +47,7 @@ namespace Brello.Models
         public int GetBoardCount()
         {
             var query = from b in context.Boards select b;
+            // Same As -> context.Boards.ToList().Count
             
             return query.Count();
         }
