@@ -14,9 +14,26 @@ namespace Brello.Models
         }
 
         // void or bool or BrelloList
-        public bool AddList(Board _board, BrelloList _list)
+        public bool AddList(int _board_id, BrelloList _list)
         {
-            return false;
+            var query = from b in context.Boards where b.BoardId == _board_id select b;
+            Board found_board = null;
+            bool result = true;
+            try
+            {
+                found_board = query.Single<Board>();
+                found_board.Lists.Add(_list);
+                context.SaveChanges();
+            }
+            catch (InvalidOperationException)
+            {
+                result = false;
+            }
+            catch (ArgumentNullException)
+            {
+                result = false;
+            }
+            return result;
         }
 
         public List<BrelloList> GetAllLists()
