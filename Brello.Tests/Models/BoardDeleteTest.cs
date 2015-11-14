@@ -85,5 +85,28 @@ namespace Brello.Tests.Models
 
             /* End Assert */
         }
+
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
+        public void EnsureICanDeleteAListFromABoard()
+        {
+            //Begin Arrange
+            var data = my_list.AsQueryable();
+
+            BoardRepository board_repo = new BoardRepository(mock_context.Object);
+            BrelloList list = new BrelloList { Title = "ToDo", BrelloListId = 1 };
+            my_list.Remove(new Board { Title = "My First Board", Owner = user1, BoardId = 1 });
+            //End Arrange
+
+            //Begin Act
+            my_list removed_list = BrelloList.createVoard();
+            //End Act
+
+            //Begin Assert
+            Assert.InNotNull(removed_list);
+            my_list.Verify(my_list => m.Add(iterator.IsAny<Board>()));
+            mock_context.Verify(x => x.SaveChanges(), Times.Once());
+
+            //End Assert    
+        }
     }
 }
