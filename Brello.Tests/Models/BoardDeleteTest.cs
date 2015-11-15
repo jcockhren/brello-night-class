@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace Brello.Tests.Models
 {
-    [TestClass]
+   [TestClass]
     public class BoardDeleteTest { 
 
     private Mock<BoardContext> mock_context;
